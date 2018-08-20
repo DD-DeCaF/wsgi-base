@@ -1,42 +1,33 @@
 sudo: required
 language: minimal
-
 git:
   depth: 2
-
 services:
-  - docker
-
+- docker
 branches:
   only:
-    - master
-    - devel
-
+  - master
+  - devel
 env:
   global:
-    - IMAGE_REPO=gcr.io/dd-decaf-cfbf6/wsgi-base
-    - IMAGE_TAG=${TRAVIS_BRANCH}
-    - IMAGE_HASH_TAG=${TRAVIS_COMMIT::12}
-
+  - IMAGE_REPO=gcr.io/dd-decaf-cfbf6/wsgi-base
+  - IMAGE_TAG=${TRAVIS_BRANCH}
+  - IMAGE_HASH_TAG=${TRAVIS_COMMIT::12}
 before_install:
-  - echo ${DOCKER_PASSWORD} | docker login -u=decaftravis --password-stdin
-
+- echo ${DOCKER_PASSWORD} | docker login -u=decaftravis --password-stdin
 install:
-  - docker build -t ${IMAGE_REPO}:${IMAGE_HASH_TAG} -t ${IMAGE_REPO}:${IMAGE_TAG} alpine
-
+- docker build -t ${IMAGE_REPO}:${IMAGE_HASH_TAG} -t ${IMAGE_REPO}:${IMAGE_TAG} alpine
 script:
-  - docker run --rm ${IMAGE_REPO}:${IMAGE_HASH_TAG} gunicorn -h
-
+- docker run --rm ${IMAGE_REPO}:${IMAGE_HASH_TAG} gunicorn -h
 before_deploy:
-  - ./scripts/install_gcloud.sh
-  - docker push ${IMAGE_REPO}:${IMAGE_HASH_TAG}
-  - docker push ${IMAGE_REPO}:${IMAGE_TAG}
-
+- "./scripts/install_gcloud.sh"
+- docker push ${IMAGE_REPO}:${IMAGE_HASH_TAG}
+- docker push ${IMAGE_REPO}:${IMAGE_TAG}
 notifications:
   email: false
   slack:
     rooms:
-      - <GENERATE SECURE TOKEN>
+      secure: eCnjUreiZm3EZSqpeey6MCtbJgMfbzWLIL6hJqegFt/erV9hsfgUaGRDf0JWls6b1eNhVVgx7YBBpq5j9fhweBgH18dGlwU8BPMyqlixzwCiK2WHfJbZ7xaDtbONrVyS1RV2a4AHZNyiQUHaANkPLyaVIW/B63MxFB4smQsFKpDiYbYXCOwL5WF++V0bozXubbkxCxpG6coUVEiVbGFmYcnrReVjEzVaMTfjZjZez7xRHyCTgr5PLCtkHr85GkhrKI/qhYk5mUKR823L+N7RHNuv5d+sKkWq9arhLc7+yaaRXNfRM9+M2S2vXAyTvQJ81H5VbSOAUr9WisGvxUX5k3EvOxafKTeJBqwd7kbppSQyYu4J+UgK0vd1CV9zfo4BJQt9MzoUuEB1NNQi9q5BqNI0RuHUQXLFy5HtJxIxWnd06TuNvX3MGof8kJ554raRMJYYnRKgIat6RRbx2MY+NEGI93wfVMMSWhbjWWDECnVidaUKR1kDhedCXm80kvZ7US3PNDQVEmulXSyqc7EALXhiW0ds4xxBVyg56hHcNH8n63NE13Kf/XBe3TuM68FlYOyOIWmVyihOVcjNA2jyuRy/jR9P0tLRab7H+eGu7rVSpWR8eO1c8RTyEngJXSZP/ocfXe9mvSk5BYv5TH9SFvGUkHYRRDwZMUJTXXwOmO8=
     on_success: change
     on_failure: change
     on_pull_requests: false
