@@ -19,7 +19,7 @@ install:
 - docker build -t ${IMAGE_REPO}:${IMAGE_HASH_TAG} -t ${IMAGE_REPO}:${IMAGE_TAG} alpine
 script:
 - docker run --rm ${IMAGE_REPO}:${IMAGE_HASH_TAG} gunicorn -h
-before_deploy:
+after_success:
 - "./scripts/install_gcloud.sh"
 - docker push ${IMAGE_REPO}:${IMAGE_HASH_TAG}
 - docker push ${IMAGE_REPO}:${IMAGE_TAG}
