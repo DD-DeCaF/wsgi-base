@@ -10,17 +10,16 @@ branches:
   - devel
 env:
   global:
-  - IMAGE_REPO=gcr.io/dd-decaf-cfbf6/wsgi-base
+  - IMAGE_REPO=dddecaf/wsgi-base
   - IMAGE_TAG=${TRAVIS_BRANCH}
   - IMAGE_HASH_TAG=${TRAVIS_COMMIT::12}
 before_install:
 - echo ${DOCKER_PASSWORD} | docker login -u=decaftravis --password-stdin
 install:
-- docker build -t ${IMAGE_REPO}:${IMAGE_HASH_TAG} -t ${IMAGE_REPO}:${IMAGE_TAG} alpine
+- docker build -t ${IMAGE_REPO}:${IMAGE_HASH_TAG} -t ${IMAGE_REPO}:${IMAGE_TAG} ./alpine
 script:
 - docker run --rm ${IMAGE_REPO}:${IMAGE_HASH_TAG} gunicorn -h
 after_success:
-- "./scripts/install_gcloud.sh"
 - docker push ${IMAGE_REPO}:${IMAGE_HASH_TAG}
 - docker push ${IMAGE_REPO}:${IMAGE_TAG}
 notifications:

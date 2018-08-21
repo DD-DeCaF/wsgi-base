@@ -16,13 +16,11 @@ FROM python:3.6-alpine3.7
 
 ENV PYTHONUNBUFFERED=1
 
-ARG CWD=/opt
-
 RUN apk add --update --no-cache openssl ca-certificates
 
-WORKDIR "${CWD}"
+WORKDIR /opt
 
-COPY wsgi-requirements.in "${CWD}/"
+COPY wsgi-requirements.in ./
 
 # `g++` is required for building `gevent` but all build dependencies are
 # later removed again to reduce the layer size.
