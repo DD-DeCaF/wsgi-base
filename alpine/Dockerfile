@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM python:3.6-alpine3.7
+FROM python:3.6-alpine3.8
 
 ENV PYTHONUNBUFFERED=1
 
@@ -30,5 +30,5 @@ RUN set -eux \
     && pip-compile --generate-hashes \
         --output-file wsgi-requirements.txt wsgi-requirements.in \
     && pip-sync wsgi-requirements.txt \
-    && rm -rf /root/.cache/pip \
+    && rm -rf /root/.cache \
     && apk del .build-deps
