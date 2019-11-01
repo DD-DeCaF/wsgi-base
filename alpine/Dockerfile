@@ -24,7 +24,7 @@ RUN apk update
 
 RUN apk add --no-cache openssl ca-certificates
 
-COPY wsgi-requirements.in ./
+COPY base-requirements.in ./
 
 # `g++` is required for building `gevent` but all build dependencies are
 # later removed again to reduce the layer size.
@@ -32,7 +32,7 @@ RUN set -eux \
     && apk add --no-cache --virtual .build-deps g++ \
     && pip install --upgrade pip setuptools wheel pip-tools \
     && pip-compile --generate-hashes \
-        --output-file wsgi-requirements.txt wsgi-requirements.in \
-    && pip-sync wsgi-requirements.txt \
+        --output-file base-requirements.txt base-requirements.in \
+    && pip-sync base-requirements.txt \
     && rm -rf /root/.cache \
     && apk del .build-deps
