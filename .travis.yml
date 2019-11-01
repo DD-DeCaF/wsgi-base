@@ -18,7 +18,7 @@ before_install:
 install:
 - docker build -t ${IMAGE_REPO}:${IMAGE_HASH_TAG} -t ${IMAGE_REPO}:${IMAGE_TAG} ./alpine
 script:
-- docker run --rm ${IMAGE_REPO}:${IMAGE_HASH_TAG} gunicorn -h
+- docker run --rm ${IMAGE_REPO}:${IMAGE_HASH_TAG} gunicorn --version
 after_success:
 - docker push ${IMAGE_REPO}:${IMAGE_HASH_TAG}
 - docker push ${IMAGE_REPO}:${IMAGE_TAG}
