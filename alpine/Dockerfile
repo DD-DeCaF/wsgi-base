@@ -26,13 +26,23 @@ RUN apk add --no-cache openssl ca-certificates
 
 COPY base-requirements.in ./
 
-# `g++` is required for building `gevent` but all build dependencies are
-# later removed again to reduce the layer size.
 RUN set -eux \
+    # Install build dependencies to make sure we can build packages that don't
+    # provide pre-built wheels from source.
     && apk add --no-cache --virtual .build-deps g++ \
+
+    # Make sure to use the latest python build tools.
     && pip install --upgrade pip setuptools wheel pip-tools \
+
+    # Fetch the latest versions of all requirements. It is OK if this fails the
+    # build; child images may use the previous version of the wsgi-base image
+    # and will continue to work.
     && pip-compile --generate-hashes \
         --output-file base-requirements.txt base-requirements.in \
+
+    # Pre-install the compiled requirements to save some build time for child
+    # images.
     && pip-sync base-requirements.txt \
+    # Remove build dependencies and caches to reduce layer size.
     && rm -rf /root/.cache \
     && apk del .build-deps
