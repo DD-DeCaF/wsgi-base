@@ -43,6 +43,8 @@ RUN set -eux \
     # Pre-install the compiled requirements to save some build time for child
     # images.
     && pip-sync base-requirements.txt \
-    # Remove build dependencies and caches to reduce layer size.
-    && rm -rf /root/.cache \
+
+    # Remove build dependencies to reduce layer size. Note: Intentionally not
+    # removing the pip cache, in order to speed up the pip-compile step for
+    # child images.
     && apk del .build-deps
