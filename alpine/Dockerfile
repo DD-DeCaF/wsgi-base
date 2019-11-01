@@ -16,11 +16,13 @@ FROM python:3.6-alpine3.8
 
 ENV PYTHONUNBUFFERED=1
 
+# Work in the /opt directory to persist the pip-compiled requirement list for
+# child images to use.
+WORKDIR /opt
+
 RUN apk update
 
 RUN apk add --no-cache openssl ca-certificates
-
-WORKDIR /opt
 
 COPY wsgi-requirements.in ./
 
