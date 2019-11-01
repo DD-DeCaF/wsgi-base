@@ -16,7 +16,9 @@ FROM python:3.6-alpine3.8
 
 ENV PYTHONUNBUFFERED=1
 
-RUN apk add --update --no-cache openssl ca-certificates
+RUN apk update
+
+RUN apk add --no-cache openssl ca-certificates
 
 WORKDIR /opt
 
