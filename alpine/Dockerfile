@@ -37,20 +37,16 @@ RUN set -eux \
     # Install build dependencies to make sure we can build packages that don't
     # provide pre-built wheels from source.
     && apk add --no-cache --virtual .build-deps g++ \
-
     # Make sure to use the latest python build tools.
     && pip install --upgrade pip setuptools wheel pip-tools \
-
     # Fetch the latest versions of all requirements. It is OK if this fails the
     # build; child images may use the previous version of the wsgi-base image
     # and will continue to work.
     && pip-compile --generate-hashes \
         --output-file base-requirements.txt base-requirements.in \
-
     # Pre-install the compiled requirements to save some build time for child
     # images.
     && pip-sync base-requirements.txt \
-
     # Remove build dependencies to reduce layer size. Note: Intentionally not
     # removing the pip cache, in order to speed up the pip-compile step for
     # child images.
