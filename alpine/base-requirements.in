@@ -7,15 +7,6 @@ flask
 flask-cors
 flask-apispec
 
-# DB and related packages
-# Note: Not all services require a DB layer, but we're sacrificing image size
-# for faster builds on the services that do.
-psycopg2
-flask-sqlalchemy
-flask-migrate
-flask-basicauth
-flask-admin
-
 # Other common dependencies
 raven[flask]
 python-jose

@@ -22,14 +22,8 @@ WORKDIR /opt
 
 RUN apk update
 
-RUN apk add --no-cache \
-    # Update OpenSSL and certificates
-    openssl \
-    ca-certificates \
-    # Libraries required for psycopg2
-    postgresql-dev \
-    python3-dev \
-    musl-dev
+# Update OpenSSL and certificates
+RUN apk add --no-cache openssl ca-certificates
 
 COPY base-requirements.in ./
 
