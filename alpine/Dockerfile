@@ -20,8 +20,6 @@ ENV PYTHONUNBUFFERED=1
 # child images to use.
 WORKDIR /opt
 
-RUN apk update
-
 # Update OpenSSL and certificates
 RUN apk add --no-cache openssl ca-certificates
 
