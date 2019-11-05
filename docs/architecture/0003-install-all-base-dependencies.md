@@ -17,7 +17,6 @@ We will install all common base dependencies in the base image. This includes:
 
 * WSGI libraries
 * Flask and related plugins
-* Database packages
 * Development requirements
 
 ## Consequences
