@@ -10,19 +10,21 @@ branches:
   - devel
 env:
   global:
-  - IMAGE_ALPINE=dddecaf/wsgi-base:alpine
-  - IMAGE_DEBIAN=dddecaf/wsgi-base:debian
+  - IMAGE=dddecaf/wsgi-base
+  - IMAGE_HASH_TAG=${TRAVIS_COMMIT::12}
 before_install:
 - echo ${DOCKER_PASSWORD} | docker login -u=decaftravis --password-stdin
 install:
-- docker build -t ${IMAGE_ALPINE} ./alpine
-- docker build -t ${IMAGE_DEBIAN} ./debian
+- docker build -t ${IMAGE}:alpine -t ${IMAGE}:alpine-${IMAGE_HASH_TAG} ./alpine
+- docker build -t ${IMAGE}:debian -t ${IMAGE}:debian-${IMAGE_HASH_TAG} ./debian
 script:
-- docker run --rm ${IMAGE_ALPINE} gunicorn --version
-- docker run --rm ${IMAGE_DEBIAN} gunicorn --version
+- docker run --rm ${IMAGE}:alpine gunicorn --version
+- docker run --rm ${IMAGE}:debian gunicorn --version
 after_success:
-- docker push ${IMAGE_ALPINE}
-- docker push ${IMAGE_DEBIAN}
+- docker push ${IMAGE}:alpine
+- docker push ${IMAGE}:alpine-${IMAGE_HASH_TAG}
+- docker push ${IMAGE}:debian
+- docker push ${IMAGE}:debian-${IMAGE_HASH_TAG}
 notifications:
   email: false
   slack:
