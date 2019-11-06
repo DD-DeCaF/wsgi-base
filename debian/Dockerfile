@@ -39,6 +39,7 @@ RUN set -eux \
         --output-file base-requirements.txt base-requirements.in \
     # Pre-install the compiled requirements to save some build time for child
     # images.
-    && pip-sync base-requirements.txt
-    # Note: Intentionally not removing the pip cache, in order to speed up the
-    # pip-compile step for child images.
+    && pip-sync base-requirements.txt \
+    # Remove the pip cache to reduce layer size. Note that the pip-tools cache
+    # is kept to speed up `pip-compile` in child images.
+    && rm -rf /root/.cache/pip
