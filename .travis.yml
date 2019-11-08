@@ -14,12 +14,13 @@ env:
   - IMAGE_HASH_TAG=${TRAVIS_COMMIT::12}
 before_install:
 - echo ${DOCKER_PASSWORD} | docker login -u=decaftravis --password-stdin
+- pip install --user cookiecutter
 install:
 - docker build -t ${IMAGE}:alpine -t ${IMAGE}:alpine-${IMAGE_HASH_TAG} ./alpine
 - docker build -t ${IMAGE}:alpine-compiler -t ${IMAGE}:alpine-compiler-${IMAGE_HASH_TAG} ./alpine-compiler
 - docker build -t ${IMAGE}:debian -t ${IMAGE}:debian-${IMAGE_HASH_TAG} ./debian
 script:
-- docker run --rm ${IMAGE}:alpine gunicorn --version
+- ./.travis/test-alpine.sh
 - docker run --rm ${IMAGE}:debian gunicorn --version
 after_success:
 - docker push ${IMAGE}:alpine
