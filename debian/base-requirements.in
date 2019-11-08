@@ -21,15 +21,3 @@ flake8-bugbear
 isort
 safety
 ipython
-
-# Compatibility constraints
-
-# pydocstyle (dependency of flake8-docstrings): pin to v3.0.0 until
-# flake8-docstrings fixes compatibility with v4.0.0
-pydocstyle==3.0.0
-
-# apispec and marshmallow (dependencies of flask-apispec): Upgrading to latest
-# version yields the following error:
-# TypeError: ... got an unexpected keyword argument 'partial'
-apispec==2.0.2
-marshmallow==2.19.5
