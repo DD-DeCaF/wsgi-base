@@ -28,7 +28,7 @@ COPY base-requirements.in ./
 RUN set -eux \
     # Install build dependencies to make sure we can build packages that don't
     # provide pre-built wheels from source.
-    && apk add --no-cache --virtual .build-deps build-base \
+    && apk add --no-cache --virtual .build-deps build-base libffi-dev \
     # Make sure to use the latest python build tools.
     && pip install --upgrade pip setuptools wheel pip-tools \
     # Fetch the latest versions of all requirements. It is OK if this fails the
