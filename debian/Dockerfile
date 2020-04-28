@@ -16,6 +16,16 @@ FROM python:3.6-slim
 
 ENV PYTHONUNBUFFERED=1
 
+ENV APP_USER=giraffe
+
+ARG UID=1000
+ARG GID=1000
+
+# Create a user for running applications if desired.
+RUN set -eux \
+    && groupadd --system --gid "${GID}" "${APP_USER}" \
+    && useradd --system --uid "${UID}" --gid "${APP_USER}" "${APP_USER}"
+
 # Work in the /opt directory to persist the pip-compiled requirement list for
 # child images to use.
 WORKDIR /opt
