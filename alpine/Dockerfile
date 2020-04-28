@@ -34,7 +34,7 @@ RUN set -eux \
     # Fetch the latest versions of all requirements. It is OK if this fails the
     # build; child images may use the previous version of the wsgi-base image
     # and will continue to work.
-    && pip-compile --generate-hashes \
+    && pip-compile --generate-hashes --verbose \
         --output-file base-requirements.txt base-requirements.in \
     # Pre-install the compiled requirements to save some build time for child
     # images.
