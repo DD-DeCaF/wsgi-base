@@ -6,6 +6,6 @@ RUN set -eux \
     && apk add --no-cache build-base \
     # Re-run pip-compile in order to pre-populate the pip cache.
     && pip-compile --generate-hashes --verbose --output-file /dev/null \
-      /opt/base-requirements.txt
+      /opt/base-requirements.txt \
     # Create the directory for service requirements placement.
     && mkdir -p /opt/requirements
