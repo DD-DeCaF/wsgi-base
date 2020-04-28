@@ -1,5 +1,6 @@
 os: linux
-language: shell
+language: python
+python: "3.6"
 git:
   depth: 2
 services:
@@ -11,24 +12,20 @@ branches:
 env:
   global:
   - IMAGE=dddecaf/wsgi-base
-  - DATE_TAG=$(date +%Y-%m-%d)
+  - BUILD_COMMIT=${TRAVIS_COMMIT}
+  - SHORT_COMMIT=${TRAVIS_COMMIT:0:7}
+  - BUILD_TIMESTAMP=$(date --utc --iso-8601=seconds)
+  - BUILD_DATE=$(date --utc --iso-8601=date)
 before_install:
 - echo ${DOCKER_PASSWORD} | docker login -u=decaftravis --password-stdin
-- pip install --user cookiecutter
+- pip install cookiecutter
 install:
-- docker build -t ${IMAGE}:alpine -t ${IMAGE}:alpine-${DATE_TAG} ./alpine
-- docker build -t ${IMAGE}:alpine-compiler -t ${IMAGE}:alpine-compiler-${DATE_TAG} ./alpine-compiler
-- docker build -t ${IMAGE}:debian -t ${IMAGE}:debian-${DATE_TAG} ./debian
+- make build
 script:
 - ./.travis/test-alpine.sh
 - docker run --rm ${IMAGE}:debian gunicorn --version
 after_success:
-- docker push ${IMAGE}:alpine
-- docker push ${IMAGE}:alpine-${DATE_TAG}
-- docker push ${IMAGE}:alpine-compiler
-- docker push ${IMAGE}:alpine-compiler-${DATE_TAG}
-- docker push ${IMAGE}:debian
-- docker push ${IMAGE}:debian-${DATE_TAG}
+- make push
 notifications:
   email: false
   slack:

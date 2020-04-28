@@ -1,4 +1,4 @@
-# Copyright 2018 Novo Nordisk Foundation Center for Biosustainability, DTU.
+# Copyright 2018-2020 Novo Nordisk Foundation Center for Biosustainability, DTU.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,6 +13,14 @@
 # limitations under the License.
 
 FROM python:3.6-slim
+
+ARG BUILD_COMMIT
+ARG BUILD_TIMESTAMP
+
+LABEL dk.dtu.biosustain.wsgi-base.debian.vendor="Novo Nordisk Foundation Center for \
+Biosustainability, Technical University of Denmark" \
+    dk.dtu.biosustain.wsgi-base.debian.commit="${BUILD_COMMIT}" \
+    dk.dtu.biosustain.wsgi-base.debian.timestamp="${BUILD_TIMESTAMP}"
 
 ENV PYTHONUNBUFFERED=1
 
