@@ -1,6 +1,5 @@
 os: linux
-language: python
-python: "3.6"
+language: shell
 git:
   depth: 2
 services:
@@ -19,11 +18,10 @@ env:
   - BUILD_DATE=$(date --utc --iso-8601=date)
 before_install:
 - echo ${DOCKER_PASSWORD} | docker login -u=decaftravis --password-stdin
-- pip install cookiecutter
 install:
 - make build
 script:
-- ./.travis/test-alpine.sh
+- docker run --rm ${IMAGE}:alpine gunicorn --version
 - docker run --rm ${IMAGE}:debian gunicorn --version
 after_success:
 - make push
