@@ -19,8 +19,9 @@ ARG BUILD_TIMESTAMP
 
 LABEL dk.dtu.biosustain.wsgi-base.debian.vendor="Novo Nordisk Foundation Center for \
 Biosustainability, Technical University of Denmark" \
-    dk.dtu.biosustain.wsgi-base.debian.commit="${BUILD_COMMIT}" \
-    dk.dtu.biosustain.wsgi-base.debian.timestamp="${BUILD_TIMESTAMP}"
+    maintainer="niso@biosustain.dtu.dk" \
+    dk.dtu.biosustain.wsgi-base.debian.build.commit="${BUILD_COMMIT}" \
+    dk.dtu.biosustain.wsgi-base.debian.build.timestamp="${BUILD_TIMESTAMP}"
 
 ENV PYTHONUNBUFFERED=1
 
