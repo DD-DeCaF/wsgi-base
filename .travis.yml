@@ -7,8 +7,6 @@ services:
 branches:
   only:
   - master
-  - devel
-  - refactor-base
 env:
   global:
   - IMAGE=dddecaf/wsgi-base
