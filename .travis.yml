@@ -22,7 +22,7 @@ script:
 - docker run --rm ${IMAGE}:alpine gunicorn --version
 - docker run --rm ${IMAGE}:debian gunicorn --version
 after_success:
-- make push
+- if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then make push; fi
 notifications:
   email: false
   slack:
