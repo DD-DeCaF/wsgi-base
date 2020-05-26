@@ -19,9 +19,9 @@ FROM dddecaf/wsgi-base:${BASE_TAG}
 ARG BUILD_COMMIT
 
 LABEL dk.dtu.biosustain.wsgi-base.alpine-compiler.vendor="Novo Nordisk Foundation Center for \
-Biosustainability, Technical University of Denmark" \
-    maintainer="niso@biosustain.dtu.dk" \
-    dk.dtu.biosustain.wsgi-base.alpine-compiler.build.commit="${BUILD_COMMIT}"
+Biosustainability, Technical University of Denmark"
+LABEL maintainer="niso@biosustain.dtu.dk"
+LABEL dk.dtu.biosustain.wsgi-base.alpine-compiler.build.commit="${BUILD_COMMIT}"
 
 RUN set -eux \
     # Install build tools. These can be required for the `pip-compile` step in

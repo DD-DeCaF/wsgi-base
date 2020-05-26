@@ -17,9 +17,9 @@ FROM python:3.6-slim
 ARG BUILD_COMMIT
 
 LABEL dk.dtu.biosustain.wsgi-base.debian.vendor="Novo Nordisk Foundation Center for \
-Biosustainability, Technical University of Denmark" \
-    maintainer="niso@biosustain.dtu.dk" \
-    dk.dtu.biosustain.wsgi-base.debian.build.commit="${BUILD_COMMIT}"
+Biosustainability, Technical University of Denmark"
+LABEL maintainer="niso@biosustain.dtu.dk"
+LABEL dk.dtu.biosustain.wsgi-base.debian.build.commit="${BUILD_COMMIT}"
 
 ENV PYTHONUNBUFFERED=1
 

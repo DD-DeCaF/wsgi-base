@@ -17,9 +17,9 @@ FROM python:3.6-alpine3.10
 ARG BUILD_COMMIT
 
 LABEL dk.dtu.biosustain.wsgi-base.alpine.vendor="Novo Nordisk Foundation Center for \
-Biosustainability, Technical University of Denmark" \
-    maintainer="niso@biosustain.dtu.dk" \
-    dk.dtu.biosustain.wsgi-base.alpine.build.commit="${BUILD_COMMIT}"
+Biosustainability, Technical University of Denmark"
+LABEL maintainer="niso@biosustain.dtu.dk"
+LABEL dk.dtu.biosustain.wsgi-base.alpine.build.commit="${BUILD_COMMIT}"
 
 ENV PYTHONUNBUFFERED=1
 
