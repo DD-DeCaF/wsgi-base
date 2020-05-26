@@ -15,13 +15,11 @@
 FROM python:3.6-alpine3.10
 
 ARG BUILD_COMMIT
-ARG BUILD_TIMESTAMP
 
 LABEL dk.dtu.biosustain.wsgi-base.alpine.vendor="Novo Nordisk Foundation Center for \
 Biosustainability, Technical University of Denmark" \
     maintainer="niso@biosustain.dtu.dk" \
-    dk.dtu.biosustain.wsgi-base.alpine.build.commit="${BUILD_COMMIT}" \
-    dk.dtu.biosustain.wsgi-base.alpine.build.timestamp="${BUILD_TIMESTAMP}"
+    dk.dtu.biosustain.wsgi-base.alpine.build.commit="${BUILD_COMMIT}"
 
 ENV PYTHONUNBUFFERED=1
 

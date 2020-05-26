@@ -15,13 +15,11 @@
 FROM python:3.6-slim
 
 ARG BUILD_COMMIT
-ARG BUILD_TIMESTAMP
 
 LABEL dk.dtu.biosustain.wsgi-base.debian.vendor="Novo Nordisk Foundation Center for \
 Biosustainability, Technical University of Denmark" \
     maintainer="niso@biosustain.dtu.dk" \
-    dk.dtu.biosustain.wsgi-base.debian.build.commit="${BUILD_COMMIT}" \
-    dk.dtu.biosustain.wsgi-base.debian.build.timestamp="${BUILD_TIMESTAMP}"
+    dk.dtu.biosustain.wsgi-base.debian.build.commit="${BUILD_COMMIT}"
 
 ENV PYTHONUNBUFFERED=1
 

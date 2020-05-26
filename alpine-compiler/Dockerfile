@@ -17,13 +17,11 @@ ARG BASE_TAG=alpine
 FROM dddecaf/wsgi-base:${BASE_TAG}
 
 ARG BUILD_COMMIT
-ARG BUILD_TIMESTAMP
 
 LABEL dk.dtu.biosustain.wsgi-base.alpine-compiler.vendor="Novo Nordisk Foundation Center for \
 Biosustainability, Technical University of Denmark" \
     maintainer="niso@biosustain.dtu.dk" \
-    dk.dtu.biosustain.wsgi-base.alpine-compiler.build.commit="${BUILD_COMMIT}" \
-    dk.dtu.biosustain.wsgi-base.alpine-compiler.build.timestamp="${BUILD_TIMESTAMP}"
+    dk.dtu.biosustain.wsgi-base.alpine-compiler.build.commit="${BUILD_COMMIT}"
 
 RUN set -eux \
     # Install build tools. These can be required for the `pip-compile` step in

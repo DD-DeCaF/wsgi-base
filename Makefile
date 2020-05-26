@@ -7,8 +7,6 @@
 IMAGE ?= dddecaf/wsgi-base
 BUILD_COMMIT ?= $(shell git rev-parse HEAD)
 SHORT_COMMIT ?= $(shell git rev-parse --short HEAD)
-# Full timestamp in UTC. Format corresponds to ISO-8601 but Unix compatible.
-BUILD_TIMESTAMP ?= $(shell date -u +%Y-%m-%dT%T+00:00)
 BUILD_DATE ?= $(shell date -u +%Y-%m-%d)
 ALPINE_TAG := alpine_${BUILD_DATE}_${SHORT_COMMIT}
 ALPINE_COMPILER_TAG := alpine-compiler_${BUILD_DATE}_${SHORT_COMMIT}
@@ -21,17 +19,17 @@ DEBIAN_TAG := debian_${BUILD_DATE}_${SHORT_COMMIT}
 ## Build the Alpine Linux base image.
 build-alpine:
 	docker pull python:3.6-alpine3.10
-	docker build --build-arg BUILD_COMMIT=$(BUILD_COMMIT) \
-		--build-arg BUILD_TIMESTAMP=$(BUILD_TIMESTAMP) \
+	docker build \
+		--build-arg BUILD_COMMIT=$(BUILD_COMMIT) \
 		--tag $(IMAGE):alpine \
 		--tag $(IMAGE):$(ALPINE_TAG) \
 		./alpine
 
 ## Build the Alpine Linux compiler image.
 build-alpine-compiler:
-	docker build --build-arg BASE_TAG=$(ALPINE_TAG) \
+	docker build \
+		--build-arg BASE_TAG=$(ALPINE_TAG) \
 		--build-arg BUILD_COMMIT=$(BUILD_COMMIT) \
-		--build-arg BUILD_TIMESTAMP=$(BUILD_TIMESTAMP) \
 		--tag $(IMAGE):alpine-compiler \
 		--tag $(IMAGE):$(ALPINE_COMPILER_TAG) \
 		./alpine-compiler
@@ -39,8 +37,8 @@ build-alpine-compiler:
 ## Build the Debian Linux base image.
 build-debian:
 	docker pull python:3.6-slim
-	docker build --build-arg BUILD_COMMIT=$(BUILD_COMMIT) \
-		--build-arg BUILD_TIMESTAMP=$(BUILD_TIMESTAMP) \
+	docker build \
+		--build-arg BUILD_COMMIT=$(BUILD_COMMIT) \
 		--tag $(IMAGE):debian \
 		--tag $(IMAGE):$(DEBIAN_TAG) \
 		./debian
