@@ -18,7 +18,7 @@ DEBIAN_TAG := debian_${BUILD_DATE}_${SHORT_COMMIT}
 
 ## Build the Alpine Linux base image.
 build-alpine:
-	docker pull python:3.6-alpine3.10
+	docker pull python:3.6-alpine3.13
 	docker build \
 		--build-arg BUILD_COMMIT=$(BUILD_COMMIT) \
 		--tag $(IMAGE):alpine \
