@@ -26,7 +26,7 @@ LABEL dk.dtu.biosustain.wsgi-base.alpine-compiler.build.commit="${BUILD_COMMIT}"
 RUN set -eux \
     # Install build tools. These can be required for the `pip-compile` step in
     # child images that require to build packages from source.
-    && apk add --no-cache build-base libffi-dev \
+    && apk add --no-cache build-base libffi-dev git \
     # Re-run pip-compile in order to pre-populate the pip cache.
     && pip-compile --allow-unsafe --generate-hashes --verbose \
         --output-file /dev/null /opt/base-requirements.txt \
